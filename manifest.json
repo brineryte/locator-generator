@@ -1,0 +1,31 @@
+{
+    "name": "Locator Generator",
+    "version": "1.0",
+    "manifest_version": 2,
+
+    "description": "Locates all sepcified elements on the current page and uses them to generate respective selectors.",
+    "icons":{
+        "128":"assets/locgen.png"
+    },
+
+    "background": {
+        "scripts": ["js/background.js"],
+        "persistent": false
+    },
+
+    "content_scripts":[
+        {
+            "matches":["<all_urls>"],
+            "js": ["js/locator-generator.js"]
+        }
+    ],
+
+    "browser_action": {
+        "default_title": "Locator Generator",
+        "default_popup": "popup.html"
+    },
+
+    "permissions": [
+        "activeTab"
+    ]
+}
