@@ -1,18 +1,18 @@
 
 function generateLoctorFromId(id){
-    return " | Id  | Locator(\"" + id + "\")";
+    return "Locator(\"" + id + "\") | ";
 }
 
 function generateLocatorFromClassName(className){
-    return " | Cls | ClassLocator(\"" + className + "\")";
+    return "ClassLocator(\"" + className + "\") | ";
 }
 
 function generateLocatorFromHref(href){
-    return " | Hrf | HrefLocator(\"" + href + "\")";
+    return "HrefLocator(\"" + href + "\") | ";
 }
 
 function generateLocatorFromLinkText(linktext){
-    return " | Lnk | LinkTextLocator(\"" + linktext + "\")";
+    return "LinkTextLocator(\"" + linktext + "\") | ";
 }
 
 elementz = $('a, input, button, select');
