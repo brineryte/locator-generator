@@ -18,7 +18,7 @@ function generateLocator(item) {
     let tag = item.tagName;
     let linktext = '';
 
-    outputString = tag + ': ';
+    let outputString = tag + ': ';
 
     if (item.id != '') {
         outputString += generateLocatorFromId(item.id);
@@ -38,27 +38,24 @@ function generateLocator(item) {
     }
 
     if (outputString != tag + ': ') {
-        return outputString;
+        return outputString + "##";
     }
 }
 
 function generateLocators() {
-    output = ''
-    elementz = document.querySelectorAll("a,button,input,select");
+    let output = ''
+    let elementz = document.querySelectorAll("a,button,input,select");
     elementz.forEach(function(currentValue){
         output += generateLocator(currentValue) + '\n'
     });
-    console.log(output);
+    return output.replaceAll('undefined', '');
 }
 
-function callGenerateOnTabDOM(){
-    chrome.tabs.getSelected(null, function(tab){
-        chrome.tabs.sendRequest(tab.id, {action: "getDOM"}, function(response){
-            console.log(response.dom);
-        })
-    })
-}
-
-chrome.runtime.onMessage.addListener(function(request){
-    alert(request);
+//Listen for messages
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
+    sendResponse({locators: generateLocators()})
+    // fix async response issue 
+    // in case you're curious about this: 
+    // https://stackoverflow.com/questions/54126343/how-to-fix-unchecked-runtime-lasterror-the-message-port-closed-before-a-respon
+    return true;
 });
